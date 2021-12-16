@@ -22,7 +22,7 @@ spring:
 
 integration :
   movie :
-    get-movie-by-category-url: http://movie-info-service:8082/movie/list/category/{categoryId}
+    get-movie-by-category-url: http://movie-info-service/movie/list/category/{categoryId}
   rating :
     get-movie-rating-url: http://movie-rating-service/rating/list/movie/{movieId}
 
