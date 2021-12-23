@@ -2,6 +2,7 @@ package io.bramcode.movie.moviecategoryservices.service;
 
 import io.bramcode.movie.moviecategoryservices.adaptor.MovieInfoAdaptor;
 import io.bramcode.movie.moviecategoryservices.adaptor.MovieRatingAdaptor;
+import io.bramcode.movie.moviecategoryservices.exception.CustomException;
 import io.bramcode.movie.moviecategoryservices.model.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class MovieInfoService {
     @Autowired
     MovieRatingAdaptor movieRatingAdaptor;
 
-    public MovieInfoDetailWrapper getMovieInfoDetail(Long categoryId) throws NotFoundException {
+    public MovieInfoDetailWrapper getMovieInfoDetail(Long categoryId) throws NotFoundException, CustomException {
 
         CategoryResponse categoryResponse = categoryService.retreiveById(categoryId);
 
