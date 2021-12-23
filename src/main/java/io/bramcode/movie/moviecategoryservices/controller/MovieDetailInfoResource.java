@@ -1,5 +1,6 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
+import io.bramcode.movie.moviecategoryservices.exception.CustomException;
 import io.bramcode.movie.moviecategoryservices.model.MovieInfoDetailWrapper;
 import io.bramcode.movie.moviecategoryservices.repository.CategoryRepository;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
@@ -24,7 +25,7 @@ public class MovieDetailInfoResource {
     private MovieInfoService movieInfoService;
 
     @GetMapping("/category/{categoryId}")
-    public MovieInfoDetailWrapper getMovieByCategory(@PathVariable("categoryId") Long categoryId) throws NotFoundException {
+    public MovieInfoDetailWrapper getMovieByCategory(@PathVariable("categoryId") Long categoryId) throws NotFoundException, CustomException {
         return movieInfoService.getMovieInfoDetail(categoryId);
     }
 

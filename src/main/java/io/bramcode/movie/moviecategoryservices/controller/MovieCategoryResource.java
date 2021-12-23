@@ -1,10 +1,11 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
+
 import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.entity.Category;
-import io.bramcode.movie.moviecategoryservices.repository.CategoryRepository;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
-import javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +21,14 @@ public class MovieCategoryResource {
     //telling spring somebody has bean somewhere of type resttemplate inject me that thing
 //    @Autowired
 //    private RestTemplate restTemplate;
+    private static final Logger logger = LoggerFactory.getLogger(MovieCategoryResource.class);
 
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
     @PostMapping("/save")
     public Category createCategory(@Valid @RequestBody Category category) {
-        return categoryService.execute(category);
+        return categoryService.saveCategory(category);
     }
 
     @GetMapping("/categories")
@@ -38,8 +37,12 @@ public class MovieCategoryResource {
     }
 
     @GetMapping("/categories/{id}")
-    public CategoryResponse getCategory(@PathVariable(value = "id") Long categoryId) throws NotFoundException {
-       return categoryService.retreiveById(categoryId);
+    public CategoryResponse getCategory(@PathVariable(value = "id") Long categoryId){
+        CategoryResponse categoryResponse =categoryService.retreiveById(categoryId);
+        logger.info("..fecthing category id");
+        logger.info(categoryResponse.getCategoryName());
+        return categoryResponse;
+     //  return categoryService.retreiveById(categoryId);
     }
 
     @PutMapping("/update/{id}")
