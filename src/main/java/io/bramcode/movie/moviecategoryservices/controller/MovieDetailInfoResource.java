@@ -1,8 +1,8 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
 import io.bramcode.movie.moviecategoryservices.exception.CustomException;
+import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.MovieInfoDetailWrapper;
-import io.bramcode.movie.moviecategoryservices.repository.CategoryRepository;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
 import io.bramcode.movie.moviecategoryservices.service.MovieInfoService;
 import javassist.NotFoundException;
@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/movie/info")
 public class MovieDetailInfoResource {
 
-    //Autowire (consumer) 
+    //Autowire (consumer)
     //telling spring somebody has bean somewhere of type resttemplate inject me that thing
-//    @Autowired
-//    private RestTemplate restTemplate;
+    //@Autowired
+    //private RestTemplate restTemplate;
 
     @Autowired
     private MovieInfoService movieInfoService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping("/category/{categoryId}")
     public MovieInfoDetailWrapper getMovieByCategory(@PathVariable("categoryId") Long categoryId) throws NotFoundException, CustomException {
-        return movieInfoService.getMovieInfoDetail(categoryId);
+        CategoryResponse categoryResponse = categoryService.retreiveById(categoryId);
+        return movieInfoService.getMovieInfoDetail(categoryResponse);
     }
 
 }

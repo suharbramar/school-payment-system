@@ -4,8 +4,6 @@ package io.bramcode.movie.moviecategoryservices.controller;
 import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +17,8 @@ public class MovieCategoryResource {
 
     //Autowire (consumer) 
     //telling spring somebody has bean somewhere of type resttemplate inject me that thing
-//    @Autowired
-//    private RestTemplate restTemplate;
-    private static final Logger logger = LoggerFactory.getLogger(MovieCategoryResource.class);
+    //@Autowired
+    //private RestTemplate restTemplate;
 
     @Autowired
     private CategoryService categoryService;
@@ -38,11 +35,7 @@ public class MovieCategoryResource {
 
     @GetMapping("/categories/{id}")
     public CategoryResponse getCategory(@PathVariable(value = "id") Long categoryId){
-        CategoryResponse categoryResponse =categoryService.retreiveById(categoryId);
-        logger.info("..fecthing category id");
-        logger.info(categoryResponse.getCategoryName());
-        return categoryResponse;
-     //  return categoryService.retreiveById(categoryId);
+       return categoryService.retreiveById(categoryId);
     }
 
     @PutMapping("/update/{id}")
