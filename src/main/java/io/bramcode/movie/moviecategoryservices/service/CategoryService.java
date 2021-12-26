@@ -38,13 +38,7 @@ public class CategoryService {
 
     @Cacheable("categoryId")
     public CategoryResponse retreiveById(Long categoryId) {
-
-        try {
-            logger.info("Sleep...");
-            Thread.sleep(3000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        logger.info("Inside category response..");
         Optional<Category> dataCategory = categoryRepository.findById(categoryId);
 
         var categoryResponse = dataCategory.map(
