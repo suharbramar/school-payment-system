@@ -35,7 +35,7 @@ class MovieRatingAdaptorTest {
     @BeforeEach
     void setUp() {
         ratingInfo = new RatingInfo();
-        ratingInfo.setMovieId(1l);
+        ratingInfo.setMovieId(1L);
         ratingInfo.setUserRatingCommentList(List.of(new UserRatingComment(
                 "Budi", new BigDecimal(4.5), "Good"
         )));
@@ -54,7 +54,7 @@ class MovieRatingAdaptorTest {
                 null, RatingInfo.class)).thenReturn(ResponseEntity.ok(ratingInfo));
         var response = movieRatingAdaptor.getMovieRating("1");
 
-        assertEquals(1l, response.getMovieId());
+        assertEquals(1L, response.getMovieId());
         assertFalse(response.getUserRatingCommentList().isEmpty());
 
 

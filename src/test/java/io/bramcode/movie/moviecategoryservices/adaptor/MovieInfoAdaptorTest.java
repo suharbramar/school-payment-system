@@ -34,11 +34,11 @@ class MovieInfoAdaptorTest {
     @BeforeEach
     void setUp() {
         movie = new Movie();
-        movie.setMovieId(1l);
+        movie.setMovieId(1L);
         movie.setMovieName("Marvel");
 
         movieCategory = new MovieCategory();
-        movieCategory.setCategoryId(1l);
+        movieCategory.setCategoryId(1L);
         movieCategory.setMovies(
                 List.of(movie)
         );
@@ -61,7 +61,7 @@ class MovieInfoAdaptorTest {
                 null, MovieCategory.class)).thenReturn(ResponseEntity.ok(movieCategory));
         var response = movieInfoAdaptor.getMovieByCategoryId(String.valueOf(movieCategory.getCategoryId()));
 
-        assertEquals(1l, response.getCategoryId());
+        assertEquals(1L, response.getCategoryId());
         assertFalse(response.getMovies().isEmpty());
     }
 }
