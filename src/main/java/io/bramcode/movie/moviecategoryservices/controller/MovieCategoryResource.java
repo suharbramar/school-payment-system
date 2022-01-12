@@ -1,7 +1,6 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
 
-import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class MovieCategoryResource {
     }
 
     @GetMapping("/categories/{id}")
-    public CategoryResponse getCategory(@PathVariable(value = "id") Long categoryId){
+    public Category getCategory(@PathVariable(value = "id") Long categoryId){
        return categoryService.retreiveById(categoryId);
     }
 

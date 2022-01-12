@@ -72,7 +72,7 @@ class CategoryServiceTest {
     void retreiveById(){
         when(categoryRepository.findById(category.getCategoryId())).thenReturn(Optional.of(category));
 
-        CategoryResponse categoryResponse = categoryService.retreiveById(category.getCategoryId());
+        Category categoryResponse = categoryService.retreiveById(category.getCategoryId());
         assertTrue(Objects.nonNull(categoryResponse));
 
     }

@@ -4,7 +4,11 @@ import io.bramcode.movie.moviecategoryservices.adaptor.MovieInfoAdaptor;
 import io.bramcode.movie.moviecategoryservices.adaptor.MovieRatingAdaptor;
 import io.bramcode.movie.moviecategoryservices.controller.MovieCategoryResource;
 import io.bramcode.movie.moviecategoryservices.exception.CustomException;
-import io.bramcode.movie.moviecategoryservices.model.*;
+import io.bramcode.movie.moviecategoryservices.model.MovieCategory;
+import io.bramcode.movie.moviecategoryservices.model.MovieInfoDetail;
+import io.bramcode.movie.moviecategoryservices.model.MovieInfoDetailWrapper;
+import io.bramcode.movie.moviecategoryservices.model.RatingInfo;
+import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
@@ -28,7 +32,7 @@ public class MovieInfoService {
 
 
     @CircuitBreaker(name = "custom", fallbackMethod = "getMovieInfoDetailFallBack")
-    public MovieInfoDetailWrapper getMovieInfoDetail(CategoryResponse categoryResponse) throws NotFoundException, CustomException {
+    public MovieInfoDetailWrapper getMovieInfoDetail(Category categoryResponse) throws NotFoundException, CustomException {
 
         MovieCategory movieCategory = movieInfoAdaptor.getMovieByCategoryId(String.valueOf(categoryResponse.getCategoryId()));
 
@@ -40,7 +44,7 @@ public class MovieInfoService {
         return movieInfoDetailWrapper;
     }
 
-    public List<MovieInfoDetail> getMovieInfoDetail(CategoryResponse categoryResponse,
+    public List<MovieInfoDetail> getMovieInfoDetail(Category categoryResponse,
                                                     MovieCategory movieCategory){
         logger.info("Call Movie Rating ...");
         List<MovieInfoDetail> movieInfoDetails = new ArrayList<>();
