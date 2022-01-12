@@ -1,10 +1,11 @@
 package io.bramcode.movie.moviecategoryservices.model;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
-public class CategoryResponse {
+public class CategoryResponse implements Serializable {
     private Long categoryId;
     private String categoryName;
     private Boolean isActive;

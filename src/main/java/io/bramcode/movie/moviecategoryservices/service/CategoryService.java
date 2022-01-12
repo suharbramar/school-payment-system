@@ -1,13 +1,15 @@
 package io.bramcode.movie.moviecategoryservices.service;
 
 import io.bramcode.movie.moviecategoryservices.exception.CustomException;
-import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.bramcode.movie.moviecategoryservices.repository.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,23 +29,25 @@ public class CategoryService {
 
     public CategoryService(){}
 
+    @CacheEvict(value = "categories", allEntries = true)
     public Category saveCategory(Category category){
-
         return categoryRepository.save(category);
     }
 
+    @Cacheable(value = "categories")
     public List<Category> retreiveAll(){
-        return categoryRepository.findAll();
+        return categoryRepository.findAll(Sort.by(Sort.Direction.ASC,"categoryId"));
     }
 
-    @Cacheable("categoryId")
-    public CategoryResponse retreiveById(Long categoryId) {
+    @Cacheable(value = "categories", key = "#categoryId")
+    public Category retreiveById(Long categoryId) {
         logger.info("Inside category response..");
         Optional<Category> dataCategory = categoryRepository.findById(categoryId);
 
         var categoryResponse = dataCategory.map(
                     value -> {
-                        CategoryResponse categoryInfo = new CategoryResponse();
+                        Category categoryInfo = new Category();
+                        //CategoryResponse categoryInfo = new CategoryResponse();
 
                         categoryInfo.setCategoryName(value.getCategoryName());
                         categoryInfo.setIsActive(value.getIsActive());
@@ -64,23 +68,25 @@ public class CategoryService {
 
     };
 
+    @CachePut(value = "categories", key = "#categoryId")
     public Category updateCategory(Long categoryId, Category category){
         Optional<Category> optCategory = categoryRepository.findById(categoryId);
-
+        Category updCategory = new Category();
       if(optCategory.isPresent()){
-          Category updCategory = optCategory.get();
+          updCategory = optCategory.get();
           updCategory.setCategoryName(category.getCategoryName());
           updCategory.setIsActive(category.getIsActive());
-          updCategory.setUpdateBy("SYSTEM");
+          updCategory.setUpdateBy(category.getUpdateBy());
           updCategory.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-          categoryRepository.save(updCategory);
+          updCategory = categoryRepository.save(updCategory);
 
       }else{
           ResponseEntity.notFound();
       }
-          return category;
+          return updCategory;
     }
 
+    @CacheEvict(value = "categories", allEntries = true)
     public Map<String, Boolean> deleteCategory(Long categoryId){
         Optional<Category> optCategory = categoryRepository.findById(categoryId);
 

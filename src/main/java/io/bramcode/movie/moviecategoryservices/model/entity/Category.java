@@ -5,11 +5,14 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity(name="Category")
 @Table(name="category")
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @SequenceGenerator(
@@ -45,6 +48,8 @@ public class Category {
     @UpdateTimestamp
     private Timestamp updateDate;
 
+    @NotNull(message = "Update_By can't be null")
+    @Size(min = 1, max = 50, message = "Update_By length is 1-50")
     @Column(name = "update_by", length = 50, nullable = false)
     private String updateBy;
 

@@ -1,8 +1,8 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
 import io.bramcode.movie.moviecategoryservices.exception.CustomException;
-import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.MovieInfoDetailWrapper;
+import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
 import io.bramcode.movie.moviecategoryservices.service.MovieInfoService;
 import javassist.NotFoundException;
@@ -29,7 +29,7 @@ public class MovieDetailInfoResource {
 
     @GetMapping("/category/{categoryId}")
     public MovieInfoDetailWrapper getMovieByCategory(@PathVariable("categoryId") Long categoryId) throws NotFoundException, CustomException {
-        CategoryResponse categoryResponse = categoryService.retreiveById(categoryId);
+        Category categoryResponse = categoryService.retreiveById(categoryId);
         return movieInfoService.getMovieInfoDetail(categoryResponse);
     }
 

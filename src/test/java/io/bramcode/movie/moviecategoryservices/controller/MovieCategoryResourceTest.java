@@ -41,7 +41,7 @@ class MovieCategoryResourceTest {
     Category dataCategory;
     Category updateCategory;
 
-    CategoryResponse categoryResponse;
+    Category categoryResponse;
 
     @BeforeEach
     void setUp() {
@@ -50,7 +50,7 @@ class MovieCategoryResourceTest {
 
         listCategory.add(dataCategory);
 
-        categoryResponse = new CategoryResponse();
+        categoryResponse = new Category();
         categoryResponse.setCategoryName("Horror");
 
         updateCategory = new Category();
