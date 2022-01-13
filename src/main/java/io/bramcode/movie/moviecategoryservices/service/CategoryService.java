@@ -71,19 +71,20 @@ public class CategoryService {
     @CachePut(value = "categories", key = "#categoryId")
     public Category updateCategory(Long categoryId, Category category){
         Optional<Category> optCategory = categoryRepository.findById(categoryId);
-        Category updCategory = new Category();
+        Category updCategory;
       if(optCategory.isPresent()){
           updCategory = optCategory.get();
           updCategory.setCategoryName(category.getCategoryName());
           updCategory.setIsActive(category.getIsActive());
           updCategory.setUpdateBy(category.getUpdateBy());
           updCategory.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-          updCategory = categoryRepository.save(updCategory);
+          categoryRepository.save(updCategory);
 
+          return updCategory;
       }else{
           ResponseEntity.notFound();
       }
-          return updCategory;
+         return category;
     }
 
     @CacheEvict(value = "categories", allEntries = true)

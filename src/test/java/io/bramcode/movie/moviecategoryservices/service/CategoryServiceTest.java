@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Sort;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -64,7 +65,7 @@ class CategoryServiceTest {
         //when
         categoryService.retreiveAll();
         //then
-        verify(categoryRepository).findAll();
+        verify(categoryRepository).findAll(Sort.by(Sort.Direction.ASC,"categoryId"));
 
     }
 
