@@ -47,6 +47,7 @@ class MovieCategoryResourceTest {
     void setUp() {
         dataCategory = new Category();
         dataCategory.setCategoryId(1l);
+        dataCategory.setUpdateBy("SYSTEM");
 
         listCategory.add(dataCategory);
 
