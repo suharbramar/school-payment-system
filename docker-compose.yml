@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  app:
+    image: 'movie-category-service:1.0'
+    ports:
+      - "8081:8081"
+    build:
+      context: .
+    container_name: app-movie-category-service
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - eureka.client.serviceUrl.defaultZone=http://192.168.99.100:8761/eureka/
+
+  db:
+    image: 'postgres:13.1-alpine'
+    ports:
+      - "5432:5432"
+    container_name: db-movie-category-service
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=moviedb

@@ -1,7 +1,6 @@
 package io.bramcode.movie.moviecategoryservices.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.bramcode.movie.moviecategoryservices.model.CategoryResponse;
 import io.bramcode.movie.moviecategoryservices.model.entity.Category;
 import io.bramcode.movie.moviecategoryservices.service.CategoryService;
 import org.junit.jupiter.api.AfterEach;
