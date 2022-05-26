@@ -1,4 +1,4 @@
-package io.bramcode.movie.moviecategoryservices;
+package sch.binadharma.spp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class MovieCategoryServicesApplication {
+public class SchoolPaymentApplication {
 
 	//singleton
 	//rest template map to this one instance
@@ -22,7 +22,7 @@ public class MovieCategoryServicesApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(MovieCategoryServicesApplication.class, args);
+		SpringApplication.run(SchoolPaymentApplication.class, args);
 	}
 
 }

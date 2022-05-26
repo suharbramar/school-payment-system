@@ -7,13 +7,13 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/moviedb
+    url: jdbc:postgresql://localhost:5432/bdschoolpaymentsystem
     username: postgres
     password: admin
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: none # When you launch the application for the first time - switch "none" at "create"
+      ddl-auto: create # When you launch the application for the first time - switch "none" at "create"
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -35,4 +35,4 @@ logging:
     org.hibernate: debug
 # Server configuration
 server:
-  port: 8081 #set your port
+  port: 8080 #set your port
