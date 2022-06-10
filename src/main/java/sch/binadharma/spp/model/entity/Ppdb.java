@@ -21,9 +21,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "Spp")
-@Table(name = "spp")
-public class Spp implements Serializable {
+@Entity(name = "Ppdb")
+@Table(name = "ppdb")
+public class Ppdb implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,30 +31,32 @@ public class Spp implements Serializable {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "spp_id", updatable = false, nullable = false)
-    private UUID sppId;
+    @Column(name = "ppdb_id", updatable = false, nullable = false)
+    private UUID ppdbId;
 
     @ManyToOne
     @JoinColumn(name = "student_nis", referencedColumnName = "student_nis", updatable = false)
-    private Student studentId;
+    private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "academic_id", referencedColumnName = "academic_id", updatable = false)
-    private AcademicYear academicYear;
-
-    @Column(name = "spp_name", length = 50, nullable = false)
-    private String sppName;
+    @JoinColumn(name = "ppdb_name", referencedColumnName = "finance_config_id", updatable = false)
+    private FinanceConfig financeConfig;
 
     @DecimalMin(value = "0.00")
     @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_amount", nullable = false)
-    private BigDecimal sppAmount;
+    @Column(name = "ppdb_amount", nullable = false)
+    private BigDecimal ppdbAmount;
 
-    @Column(name = "student_spp_status", length = 50, nullable = false)
-    private String studentSppStatus;
+    @DecimalMin(value = "0.00")
+    @Digits(integer = 15, fraction = 2)
+    @Column(name = "student_ppdb_paid", nullable = false)
+    private BigDecimal studentPpdbPaid;
 
-    @Column(name = "student_spp_note", length = 100)
-    private String studentSppNote;
+    @Column(name = "student_ppdb_status", length = 50, nullable = false)
+    private String studentPpdbStatus;
+
+    @Column(name = "student_ppdb_note", length = 100)
+    private String studentPpdbNote;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "isDeleted", nullable = false)

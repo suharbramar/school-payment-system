@@ -1,9 +1,6 @@
 package sch.binadharma.spp.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,29 +16,29 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity(name = "AcademicYear")
 @Table(name = "academicyear")
 public class AcademicYear implements Serializable {
     @Id
-    @Column(name = "academic_id", length = 20, nullable = false)
+    @Column(name = "academic_id", length = 50, nullable = false)
     private String academicId;
 
     @Column(name = "academic_name", length = 100, nullable = false)
     private String academicName;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "academic_status", nullable = false)
-    private Boolean academicStatus;
+    @Column(name = "isDeleted", nullable = false)
+    private Boolean isDeleted;
 
-    @DateTimeFormat(pattern = "mm/yyyy")
+    @DateTimeFormat(pattern = "dd//MM/yyyy")
     @Column(name = "academic_startdate", nullable = false)
     private Date academicStartDate;
 
-    @DateTimeFormat(pattern = "mm/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "academic_enddate", nullable = false)
     private Date academicEndDate;
 

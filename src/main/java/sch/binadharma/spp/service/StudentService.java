@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import sch.binadharma.spp.model.entity.Spp;
 import sch.binadharma.spp.model.entity.Student;
 import sch.binadharma.spp.repository.StudentRepository;
 
@@ -18,6 +19,9 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private SppService sppService;
+
     public StudentService() {
     }
 
@@ -30,24 +34,13 @@ public class StudentService {
 
         Optional<Student> optionalStudent = studentRepository.findById(studentNis);
 
-        if (optionalStudent.isEmpty()) {
-            ResponseEntity.notFound();
+        if (optionalStudent.isPresent()) {
+            Student responseStudent = optionalStudent.get();
+
+            return responseStudent;
         }
 
-        Student student = optionalStudent.get();
-        Student respStudent = Student.builder()
-                .studentNis(student.getStudentNis())
-                .studentName(student.getStudentName())
-                .studentClass(student.getStudentClass())
-                .studentDateOfBirth(student.getStudentDateOfBirth())
-                .studentOriginatorSchoolName(student.getStudentOriginatorSchoolName())
-                .studentSchoolName(student.getStudentSchoolName())
-                .studentAddress(student.getStudentAddress())
-                .studentPhoneNumber(student.getStudentPhoneNumber())
-                .studentStatus(student.getStudentStatus())
-                .build();
-
-        return respStudent;
+        return null;
 
     }
 
@@ -67,7 +60,8 @@ public class StudentService {
             updStudent.setStudentSchoolName(student.getStudentSchoolName());
             updStudent.setStudentAddress(student.getStudentAddress());
             updStudent.setStudentPhoneNumber(student.getStudentPhoneNumber());
-            updStudent.setStudentStatus(student.getStudentStatus());
+            updStudent.setIsDeleted(student.getIsDeleted());
+            updStudent.setUpdateBy("ADMIN"); //need get informastion from login
 
             studentRepository.save(updStudent);
 

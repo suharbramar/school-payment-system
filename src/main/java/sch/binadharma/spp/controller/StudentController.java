@@ -1,14 +1,19 @@
 package sch.binadharma.spp.controller;
 
 import javassist.NotFoundException;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sch.binadharma.spp.model.entity.Spp;
 import sch.binadharma.spp.model.entity.Student;
 import sch.binadharma.spp.service.StudentService;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/v1/student")
@@ -23,12 +28,17 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable(value = "id") Long studentId) throws NotFoundException {
-        return studentService.retreiveByStudentNis(studentId);
+    public ResponseEntity<Object> getStudentById(@PathVariable(value = "id") Long studentId) throws NotFoundException {
+        Student student = studentService.retreiveByStudentNis(studentId);
+        if(Objects.nonNull(student)){
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Student not found", HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/save")
-    public Student createCategory(@Valid @RequestBody Student student) {
+    public Student createCategory(@Valid @RequestBody Student student
+    ) {
         return studentService.saveStudent(student);
     }
 

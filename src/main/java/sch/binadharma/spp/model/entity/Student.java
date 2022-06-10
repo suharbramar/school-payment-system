@@ -40,8 +40,14 @@ public class Student implements Serializable {
     @Column(name = "student_date_of_birth", nullable = false)
     private Date studentDateOfBirth;
 
+    @Column(name = "student_school_type", length = 10, nullable = false)
+    private String studentSchoolType;
+
     @Column(name = "student_school_name", length = 50, nullable = false)
     private String studentSchoolName;
+
+    @Column(name = "major", length = 10)
+    private String studentMajor;
 
     @Column(name = "student_originator_school_name", length = 50)
     private String studentOriginatorSchoolName;
@@ -53,8 +59,8 @@ public class Student implements Serializable {
     private String studentPhoneNumber;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "student_status", nullable = false)
-    private Boolean studentStatus;
+    @Column(name = "isDeleted", nullable = false)
+    private Boolean isDeleted;
 
     @Column(name = "create_date", nullable = false)
     @CreationTimestamp
