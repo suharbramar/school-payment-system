@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Pendaftaran Siswa</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Daftar Siswa</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form th:action="@{/student/save}" th:object="${student}" method="post">
+                <div class="card">
+                    <div class="card-header">
+                        Data siswa
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 col-md-6">
+                            <label for="studentNis" class="form-label">Nomor Induk Siswa (NIS)</label>
+                            <input type="number" class="form-control" id="studentNis"
+                                   placeholder="Nomor Induk Siswa (NIS)"
+                                   th:field="*{studentNis}">
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="studentName" class="form-label">Nama Siswa</label>
+                            <input type="text" class="form-control" id="studentName" placeholder="Nama Siswa"
+                                   th:field="*{studentName}">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="studentDateOfBirth" class="form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="studentDateOfBirth"
+                                   placeholder="Tanggal lahir" th:field="${student.studentDateOfBirth}">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Jenis Kelamin</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="studentGenderMale"
+                                       th:field="*{studentGender}" th:value="Pria" checked>
+                                <label class="form-check-label" for="studentGenderMale">
+                                    Pria
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="studentGenderFemale"
+                                       th:field="*{studentGender}" th:value="Wanita">
+                                <label class="form-check-label" for="studentGenderFemale">
+                                    Wanita
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="studentAddress" class="form-label">Alamat Siswa</label>
+                            <input type="text" class="form-control" id="studentAddress" th:field="*{studentAddress}"
+                                   placeholder="Alamat Siswa">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="studentCity" class="form-label">Kota / Kabupaten</label>
+                                <input type="text" class="form-control" id="studentCity" th:field="*{studentCity}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="studentProvince" class="form-label">Provinsi</label>
+                                <select id="studentProvince" class="form-select" th:field="*{studentProvince}">
+                                    <option value="">Choose...</option>
+                                    <option th:each="provinceConfig : ${provinceConfigs}" th:value="${provinceConfig.provinceId}" th:utext="${provinceConfig.provinceName}"/>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="studentZip" class="form-label">Kode Pos</label>
+                                <input type="text" class="form-control" id="studentZip" th:field="*{studentZip}">
+                            </div>
+                        </div>
+
+                        <div class="mt-3 col-12">
+                            <div class="col-md-6">
+                                <label for="studentPhoneNumber" class="form-label">Nomor Telepon Siswa</label>
+                                <input type="number" class="form-control" id="studentPhoneNumber"
+                                       th:field="*{studentPhoneNumber}"
+                                       placeholder="Nomor Telepon Siswa">
+                            </div>
+                            <div class="mt-3 col-md-6">
+                                <label for="studentOriginatorSchoolName" class="form-label">Asal Sekolah</label>
+                                <input type="text" class="form-control" id="studentOriginatorSchoolName"
+                                       th:field="*{studentOriginatorSchoolName}"
+                                       placeholder="Asal Sekolah">
+                            </div>
+                        </div>
+
+                        <div class="mt-3 col-12">
+                            <label class="form-label">Status daftar siswa</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="studentStatusNew"
+                                       th:field="*{studentStatus}" th:value="baru" checked>
+                                <label class="form-check-label" for="studentStatusNew">
+                                    Baru
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="studentStatusMovement"
+                                       th:field="*{studentStatus}" th:value="mutasi">
+                                <label class="form-check-label" for="studentStatusMovement">
+                                    Mutasi/Pindahan
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 card">
+                    <div class="card-header">
+                        Data orangtua siswa
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 col-12">
+                            <label for="studentFatherName" class="form-label">Nama Ayah Kandung</label>
+                            <input type="text" class="form-control" id="studentFatherName"
+                                   th:field="*{studentFatherName}"
+                                   placeholder="Nama Ayah Kandung">
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="studentMotherName" class="form-label">Nama Ibu Kandung</label>
+                            <input type="text" class="form-control" id="studentMotherName"
+                                   th:field="*{studentMotherName}"
+                                   placeholder="Nama Ibu Kandung">
+                        </div>
+                        <div class="mb-2 col-12">
+                            <label class="form-label">Alamat orangtua sama dengan siswa ? </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="sameAddressWithParents" th:field="*{IsSameAddressWithParents}" th:value="1"
+                                       checked>
+                                <label class="form-check-label" for="sameAddressWithParents">
+                                    Iya
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="differentAddressWithParents"
+                                       th:field="*{IsSameAddressWithParents}" th:value="0">
+                                <label class="form-check-label" for="differentAddressWithParents">
+                                    Tidak
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="studentParentAddress" class="form-label">Alamat OrangTua</label>
+                            <input type="text" class="form-control" id="studentParentAddress"
+                                   th:field="*{studentParentAddress}"
+                                   placeholder="Alamat OrangTua">
+                        </div>
+                        <div class="row mb-3 g-3">
+                            <div class="col-md-6">
+                                <label for="studentParentCity" class="form-label">Kota / Kabupaten</label>
+                                <input type="text" class="form-control" id="studentParentCity"
+                                       th:field="*{studentParentCity}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="studentParentProvince" class="form-label">Provinsi</label>
+                                <select id="studentParentProvince" class="form-select" th:field="*{studentParentProvince}">
+                                    <option value="">Choose...</option>
+                                    <option th:each="provinceConfig : ${provinceConfigs}" th:value="${provinceConfig.provinceId}" th:utext="${provinceConfig.provinceName}"/>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="studentParentZip" class="form-label">Kode Pos</label>
+                                <input type="text" class="form-control" id="studentParentZip"
+                                       th:field="*{studentParentZip}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="studentParentPhoneNumber" class="form-label">Nomor Telepon OrangTua</label>
+                            <input type="number" class="form-control" id="studentParentPhoneNumber"
+                                   th:field="*{studentParentPhoneNumber}"
+                                   placeholder="Nomor Telepon OrangTua">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 card">
+                    <div class="card-header">
+                        Data pendaftaran sekolah
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 col-12">
+                            <label for="studentSchoolName" class="form-label">Nama Sekolah</label>
+                            <select id="studentSchoolName" class="form-select" th:field="*{studentSchoolName}">
+                                <option value="">Choose...</option>
+                                <option th:each="schoolNameConfig : ${schoolNameConfigs}" th:value="${schoolNameConfig.schoolId}" th:utext="${schoolNameConfig.schoolName}"/>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="studentMajor" class="form-label">Jurusan</label>
+                            <select id="studentMajor" class="form-select" th:field="*{studentMajor}">
+                                <option value="">Choose...</option>
+                                <option th:value="IPS" th:utext="IPS"/>
+                                <option th:value="IPA" th:utext="IPA"/>
+                                <option th:value="Bahasa" th:utext="Bahasa"/>
+                            </select>
+                        </div>
+                        <div class="mt-3 col-md-4">
+                            <label for="studentClass" class="form-label">Kelas</label>
+                            <select id="studentClass" class="form-select" th:field="*{studentClass}">
+                                <option value="">Choose...</option>
+                                <option th:value="7" th:utext="7"/>
+                                <option th:value="8" th:utext="8"/>
+                                <option th:value="9" th:utext="9"/>
+                                <option th:value="10" th:utext="10"/>
+                                <option th:value="11" th:utext="11"/>
+                                <option th:value="12" th:utext="12"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-3 col-12 text-center">
+                    <button class="btn btn-secondary btn" type="submit">
+<!--                        <i class="bi bi-person-plus"></i>-->
+                        <span class="ms-1 d-none d-sm-inline">Daftar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

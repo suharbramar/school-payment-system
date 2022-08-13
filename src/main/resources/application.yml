@@ -4,6 +4,8 @@ spring:
     active: local
   application:
     name: binadharma-spp-service
+  thymeleaf:
+    cache: false
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -35,4 +37,6 @@ logging:
     org.hibernate: debug
 # Server configuration
 server:
+  servlet:
+    context-path: /bdpay
   port: 8080 #set your port

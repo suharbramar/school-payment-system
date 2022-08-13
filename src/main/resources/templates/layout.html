@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>BinaDharma Bandung</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/dashboard.css}"/>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css}">
+</head>
+<body class="d-flex flex-column h-100">
+<div>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <div th:replace="/fragments/header"></div>
+    </header>
+
+    <aside class="main-sidebar">
+        <div th:replace="/fragments/main-sidebar"></div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="content-header" layout:fragment="header"></div>
+
+        <div class="container-fluid">
+           <div class="row">
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div layout:fragment="content"></div>
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="text-center">
+            <span class="text-mute">Copyright &copy; Yayasan Binadharma Bandung 2022.</span>
+        </div>
+    </footer>
+</div>
+<script th:src="@{/bootstrap/js/bootstrap.js}"/>
+<script th:src="@{/bootstrap/js/bootstrap.bundle.js}"/>
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"/>
+<script th:src="@{/bootstrap/js/feather.min.js}"></script>
+<script th:src="@{/bootstrap/js/Chart.min.js}"></script>
+<script th:src="@{/bootstrap/js/dashboard.js}"/>
+</body>
+</html>

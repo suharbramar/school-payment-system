@@ -1,9 +1,7 @@
 package sch.binadharma.spp.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -13,17 +11,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity(name = "Student")
 @Table(name = "student")
-public class Student implements Serializable {
+public class Student extends BaseEntity {
 
     @Id
     @Size(min = 1, max = 10, message = "Maximum student nis is 10 digit number")
@@ -36,12 +34,55 @@ public class Student implements Serializable {
     @Column(name = "student_class", length = 5, nullable = false)
     private String studentClass;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "student_date_of_birth", nullable = false)
     private Date studentDateOfBirth;
 
-    @Column(name = "student_school_type", length = 10, nullable = false)
-    private String studentSchoolType;
+    @Column(name = "student_gender", length = 10, nullable = false)
+    private String studentGender;
+
+    @Column(name = "student_address", length = 100, nullable = false)
+    private String studentAddress;
+
+    @Column(name = "student_city", length = 50, nullable = false)
+    private String studentCity;
+
+    @Column(name = "student_province", length = 50, nullable = false)
+    private String studentProvince;
+
+    @Column(name = "student_zip", length = 10, nullable = false)
+    private String studentZip;
+
+    @Column(name = "student_phone_number", length = 20)
+    private String studentPhoneNumber;
+
+    @Column(name = "studentStatus", length = 20, nullable = false)
+    private String studentStatus;
+
+    @Column(name = "student_father_name", length = 50, nullable = false)
+    private String studentFatherName;
+
+    @Column(name = "student_mother_name", length = 50, nullable = false)
+    private String studentMotherName;
+
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "student_sameaddress_withparents", nullable = false)
+    private Boolean IsSameAddressWithParents;
+
+    @Column(name = "student_parent_address", length = 100, nullable = false)
+    private String studentParentAddress;
+
+    @Column(name = "student_parent_city", length = 50, nullable = false)
+    private String studentParentCity;
+
+    @Column(name = "student_parent_province", length = 50, nullable = false)
+    private String studentParentProvince;
+
+    @Column(name = "student_parent_zip", length = 10, nullable = false)
+    private String studentParentZip;
+
+    @Column(name = "student_parent_phone_number", length = 20)
+    private String studentParentPhoneNumber;
 
     @Column(name = "student_school_name", length = 50, nullable = false)
     private String studentSchoolName;
@@ -52,31 +93,8 @@ public class Student implements Serializable {
     @Column(name = "student_originator_school_name", length = 50)
     private String studentOriginatorSchoolName;
 
-    @Column(name = "student_address", length = 100)
-    private String studentAddress;
-
-    @Column(name = "student_phone_number", length = 20)
-    private String studentPhoneNumber;
-
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "isDeleted", nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
-
-    @Column(name = "create_date", nullable = false)
-    @CreationTimestamp
-    private Timestamp createDate;
-
-    @Column(name = "create_by", length = 50, nullable = false)
-    private String createBy;
-
-    @Column(name = "update_date", nullable = false)
-    @UpdateTimestamp
-    private Timestamp updateDate;
-
-    @NotNull(message = "Update_By can't be null")
-    @Size(min = 1, max = 50, message = "Update_By length is 1-50")
-    @Column(name = "update_by", length = 50, nullable = false)
-    private String updateBy;
-
 
 }

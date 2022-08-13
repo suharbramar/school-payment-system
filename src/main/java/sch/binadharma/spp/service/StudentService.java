@@ -1,9 +1,15 @@
 package sch.binadharma.spp.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sch.binadharma.spp.exception.CustomException;
 import sch.binadharma.spp.model.entity.Spp;
 import sch.binadharma.spp.model.entity.Student;
 import sch.binadharma.spp.repository.StudentRepository;
@@ -12,6 +18,7 @@ import java.util.*;
 
 @Service
 @Slf4j
+@Transactional
 public class StudentService {
 
     //private static final Logger logger = (Logger) LoggerFactory.getLogger(StudentService.class);
@@ -26,7 +33,7 @@ public class StudentService {
     }
 
     public List<Student> retreiveAllStudent() {
-        return studentRepository.findAll();
+        return studentRepository.findAllByIsDeletedFalse();
     }
 
     public Student retreiveByStudentNis(Long studentNis) {
@@ -45,6 +52,11 @@ public class StudentService {
     }
 
     public Student saveStudent(Student student) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedName = authentication.getName();
+        student.setIsDeleted(Boolean.FALSE);
+        student.setCreateBy(loggedName);
+        student.setUpdateBy(loggedName);
         return studentRepository.save(student);
     }
 
@@ -75,17 +87,38 @@ public class StudentService {
     }
 
     public Map<String, Boolean> deleteStudent(Long studentId) {
-        Student deleteStudent = retreiveByStudentNis(studentId);
+        Optional<Student> studentToDelete = studentRepository.findByStudentNisAndIsDeletedFalse(studentId);
 
         Map<String, Boolean> response = new HashMap<>();
-        if (Objects.nonNull(deleteStudent)) {
-            studentRepository.delete(deleteStudent);
-            response.put("Deleted", Boolean.TRUE);
-        } else {
-            ResponseEntity.notFound();
-        }
+        studentToDelete.ifPresentOrElse(
+                student -> {
+                    student.setIsDeleted(Boolean.TRUE);
+                    studentRepository.save(student);
+
+                    response.put("Deleted", Boolean.TRUE);
+                }, () -> new CustomException("Data not found", "Student ID not found", "Please check Student ID "+studentId)
+        );
 
         return response;
+
+
+//        if (Objects.nonNull(studentToDelete)) {
+//
+//            //studentRepository.delete(deleteStudent);
+//            //response.put("Deleted", Boolean.TRUE);
+//        } else {
+//            ResponseEntity.notFound();
+//        }
+//
+////        Student deleteStudent = retreiveByStudentNis(studentId);
+////
+////        Map<String, Boolean> response = new HashMap<>();
+////        if (Objects.nonNull(deleteStudent)) {
+////            studentRepository.delete(deleteStudent);
+////            response.put("Deleted", Boolean.TRUE);
+////        } else {
+////            ResponseEntity.notFound();
+////        }
     }
 
 }
