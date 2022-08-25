@@ -21,16 +21,10 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: true
-  redis:
-    host: 192.168.99.100
-    port: 6379
-  cache:
-    redis:
-      time-to-live: 90s
 
 integration :
   movie :
-    get-movie-by-category-url: http://movie-info-service/movie/list/category/{categoryId}
+    get-movie-by-category-url: http://movie-info-service:8082/movie/list/category/{categoryId}
   rating :
     get-movie-rating-url: http://movie-rating-service/rating/list/movie/{movieId}
 
@@ -43,39 +37,6 @@ logging:
     org.hibernate: debug
 # Server configuration
 server:
-<<<<<<< HEAD
-  port: 8081 #set your port
-  error:
-    include-message: always
-    include-binding-errors: always
-
-resilience4j:
-  circuitbreaker:
-    instances:
-      custom:
-        registerHealthIndicator: true
-        eventConsumerBufferSize: 10
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        failureRateThreshold: 50
-        minimumNumberOfCalls: 5
-        permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowSize: 10
-        waitDurationInOpenState: 5s
-        slidingWindowType: COUNT_BASED
-
-management:
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health
-  endpoint:
-    health:
-      show-details: always
-=======
   servlet:
     context-path: /bdpay
   port: 8080 #set your port
->>>>>>> c977bf7f2ce2e55e0f355cc0c1034b36defbce8c
