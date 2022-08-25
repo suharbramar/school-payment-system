@@ -1,11 +1,9 @@
 package sch.binadharma.spp.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -22,8 +20,9 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Student")
-@Table(name = "student")
+@Builder
+@Entity(name = "Spp")
+@Table(name = "spp")
 public class Spp implements Serializable {
 
     @Id
@@ -35,103 +34,31 @@ public class Spp implements Serializable {
     @Column(name = "spp_id", updatable = false, nullable = false)
     private UUID sppId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_nis", referencedColumnName = "student_nis")
-    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "student_nisn", referencedColumnName = "student_nisn", updatable = false)
+    private Student studentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_id", referencedColumnName = "academic_id")
+    @ManyToOne
+    @JoinColumn(name = "academic_id", referencedColumnName = "academic_id", updatable = false)
     private AcademicYear academicYear;
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "ppdb_formulir", updatable = false)
-    private BigDecimal ppdbFormulir;
+    @Column(name = "spp_name", length = 50, nullable = false)
+    private String sppName;
 
-    @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.00")
     @Digits(integer = 15, fraction = 2)
-    @Column(name = "ppdb_osis", updatable = false)
-    private BigDecimal ppdbOsis;
+    @Column(name = "spp_amount", nullable = false)
+    private BigDecimal sppAmount;
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "ppdb_spp_july", updatable = false)
-    private BigDecimal ppdbSppJuly;
+    @Column(name = "student_spp_status", length = 50, nullable = false)
+    private String studentSppStatus;
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "ppdb_dsp", updatable = false)
-    private BigDecimal ppdbDsp;
+    @Column(name = "student_spp_note", length = 100)
+    private String studentSppNote;
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "registrasi_sarana", updatable = false)
-    private BigDecimal registrasiSarana;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "registrasi_osis", updatable = false)
-    private BigDecimal registrasiOsis;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "registrasi_spp_july")
-    private BigDecimal registrasiSppJuly;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_agustus")
-    private BigDecimal sppAgustus;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_september")
-    private BigDecimal sppSeptember;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_october")
-    private BigDecimal sppOctober;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_november")
-    private BigDecimal sppNovember;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_december")
-    private BigDecimal sppDecember;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_january")
-    private BigDecimal sppJanuary;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_february")
-    private BigDecimal sppFebruary;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_march")
-    private BigDecimal sppMarch;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_april")
-    private BigDecimal sppApril;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_may")
-    private BigDecimal sppMay;
-
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 15, fraction = 2)
-    @Column(name = "spp_june")
-    private BigDecimal sppJune;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "isDeleted", nullable = false)
+    private Boolean isDeleted;
 
     @Column(name = "create_date", nullable = false)
     @CreationTimestamp

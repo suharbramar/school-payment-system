@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
+    <!-- for mobile device -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>BinaDharma SPP System</title>
+
+<!--    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>-->
+<!--    <link rel="stylesheet" href="/bootstrap/css/dashboard.css"/>-->
+<!--    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>-->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+<!--    <link rel="stylesheet" th:href="@{/bootstrap/css/dashboard.css}"/>-->
+</head>
+<body>
+<div class="wrapper">
+
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <div th:replace="/fragments/header"></div>
+    </header>
+
+    <aside class="main-sidebar">
+        <div th:replace="/fragments/main-sidebar"></div>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!--        &lt;!&ndash; Content Header (Page header) &ndash;&gt;-->
+        <section class="content-header" layout:fragment="header"></section>
+
+        <!--        &lt;!&ndash; Main content &ndash;&gt;-->
+        <section class="content">
+            <div layout:fragment="content"></div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- PAGE CONTENT -->
+
+    <!--    <footer class="main-footer">-->
+    <!--        <div class="pull-right hidden-xs">-->
+    <!--            <b>Version</b> 1.0.0-->
+    <!--        </div>-->
+    <!--        <strong>Copyright Yayasan BinaDharma; 2021.</strong> All rights reserved.-->
+    <!--    </footer>-->
+
+</div>
+<!--<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"/>-->
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/bootstrap/js/feather.min.js}"></script>-->
+<!--<script th:src="@{/bootstrap/js/Chart.min.js}"></script>-->
+<!--<script th:src="@{/bootstrap/js/dashboard.js}"/>-->
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>

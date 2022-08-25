@@ -4,8 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import sch.binadharma.spp.model.entity.Student;
 
-@Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+import java.util.List;
+import java.util.Optional;
 
-    boolean existsById(Long id);
+@Repository
+public interface StudentRepository extends JpaRepository<Student, String> {
+    List<Student> findAllByIsDeletedFalse();
+    Optional<Student> findByStudentNisnAndIsDeletedFalse(String id);
+
+    boolean existsById(String id);
 }

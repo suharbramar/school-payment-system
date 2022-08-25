@@ -1,9 +1,6 @@
 package sch.binadharma.spp.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,25 +19,22 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "SppTransaction")
-@Table(name = "spptransaction")
-public class SppTransaction implements Serializable {
+@Builder
+@Entity(name = "Transaction")
+@Table(name = "transaction")
+public class Transaction implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "spp_transaction_id", updatable = false, nullable = false)
-    private UUID sppTransactionId;
+    @Column(name = "transaction_id", updatable = false, nullable = false)
+    private UUID transactionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "finance_config_id", referencedColumnName = "finance_config_id")
-    private FinanceConfig financeConfig;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_nis", referencedColumnName = "student_nis")
-    private Student student;
+    @Size(min = 1, max = 10, message = "Maximum student nis is 10 digit number")
+    @Column(name = "student_nisn", length = 10, nullable = false)
+    private Long studentNisn;
 
     @Column(name = "transaction_date", nullable = false)
     @CreationTimestamp
@@ -50,6 +44,22 @@ public class SppTransaction implements Serializable {
     @Digits(integer = 15, fraction = 2)
     @Column(name = "transaction_amount")
     private BigDecimal transactionAmount;
+
+    @Column(name = "transaction_type", length = 50, nullable = false)
+    private String transactionType;
+
+    @Column(name = "transaction_status", length = 50)
+    private String transactionStatus;
+
+    @Column(name = "transaction_note", length = 100)
+    private String transactionNote;
+
+    @Column(name = "academic_id", length = 50, nullable = false)
+    private String academicId;
+
+    @Column(name = "create_date", nullable = false)
+    @CreationTimestamp
+    private Timestamp createDate;
 
     @Column(name = "create_by", length = 50, nullable = false)
     private String createBy;
@@ -63,13 +73,5 @@ public class SppTransaction implements Serializable {
     @Column(name = "update_by", length = 50, nullable = false)
     private String updateBy;
 
-    @Column(name = "transaction_type", length = 20)
-    private String transaction_type;
-
-    @Column(name = "transaction_status", length = 50)
-    private String transaction_status;
-
-    @Column(name = "transaction_note", length = 100)
-    private String transaction_note;
 
 }

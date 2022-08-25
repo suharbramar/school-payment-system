@@ -8,18 +8,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient
 public class SchoolPaymentApplication {
 
 	//singleton
 	//rest template map to this one instance
 	//bean as producer, anybody autowired this method then it will inject
 	//the return type must be same with return type specifed in autowired
-	@Bean
-	@LoadBalanced
-	public RestTemplate getRestTemplate(){
-       return new RestTemplate();
-	}
+//	@Bean
+//	@LoadBalanced
+//	public RestTemplate getRestTemplate(){
+//       return new RestTemplate();
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SchoolPaymentApplication.class, args);
