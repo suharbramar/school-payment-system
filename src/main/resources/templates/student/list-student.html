@@ -63,7 +63,7 @@
                     <thead class="thead">
                     <tr>
                         <!--                                    <th>Image</th>-->
-                        <th>NIS</th>
+                        <th>NISN</th>
                         <th>Nama</th>
                         <th>Tanggal Lahir</th>
                         <th>Jenis Kelamin</th>
@@ -81,13 +81,13 @@
                         <!--                                    <td>-->
                         <!--                                        <img th:src="@{${product.getFullImage1Url()}}" style="width:50px;height:50px;" />-->
                         <!--                                    </td>-->
-                        <td th:text="${student.studentNis}"></td>
+                        <td th:text="${student.studentNisn}"></td>
                         <!--                                    <td th:each="category : ${categories}"-->
                         <!--                                        th:if="(${category.id} == ${product.category.id})"-->
                         <!--                                        th:text="${category.name}">-->
                         <!--                                    </td>-->
-                        <td th:text="${student.studentName}"></td>
-                        <td th:text="${student.studentDateOfBirth}"></td>
+                        <td th:text="${student.studentFullName}"></td>
+                        <td th:text="${#dates.format(student.studentDateOfBirth,'dd-MMM-yyyy')}"></td>
                         <td th:text="${student.studentGender}"></td>
                         <td th:text="${student.studentSchoolName}"></td>
                         <td th:text="${student.studentMajor}"></td>
@@ -98,9 +98,9 @@
                         </td>
                         <td>
                             <a href="#" class="btn btn-primary btn-sm purple editView" title="Edit"
-                               th:href="@{'/student/edit/' + ${student.studentNis}}"><i class="fa fa-edit"></i>Ubah</a>
+                               th:href="@{'/student/edit/' + ${student.studentNisn}}"><i class="fa fa-edit"></i>Ubah</a>
                             <a href="#" class="btn btn-danger btn-sm purple deleteView" title="Delete"
-                               th:href="@{'/student/delete/' + ${student.studentNis}}"><i
+                               th:href="@{'/student/delete/' + ${student.studentNisn}}"><i
                                     class="fa fa-trash-o"></i>Hapus</a>
                         </td>
                     </tr>
@@ -125,19 +125,19 @@
 
     <th:block layout:fragment="script">
         <script>
-      $(function () {
+<!--      $(function () {-->
 
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : true,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
+<!--        $('#example1').DataTable({-->
+<!--          'paging'      : true,-->
+<!--          'lengthChange': false,-->
+<!--          'searching'   : true,-->
+<!--          'ordering'    : true,-->
+<!--          'info'        : true,-->
+<!--          'autoWidth'   : false-->
+<!--        })-->
 
-        jQuery('#example1_wrapper input').addClass("form-control input-sm"); // modify table search input
-      })
+<!--        jQuery('#example1_wrapper input').addClass("form-control input-sm"); // modify table search input-->
+<!--      })-->
 
 
 

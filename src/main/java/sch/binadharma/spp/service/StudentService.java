@@ -36,7 +36,7 @@ public class StudentService {
         return studentRepository.findAllByIsDeletedFalse();
     }
 
-    public Student retreiveByStudentNis(Long studentNis) {
+    public Student retreiveByStudentNis(String studentNis) {
         //logger.info("Inside category response..");
 
         Optional<Student> optionalStudent = studentRepository.findById(studentNis);
@@ -60,15 +60,12 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student updateStudent(Long studentId, Student student) {
+    public Student updateStudent(String studentId, Student student) {
         Optional<Student> optStudent = studentRepository.findById(studentId);
 
         if (optStudent.isPresent()) {
             Student updStudent = optStudent.get();
-            updStudent.setStudentName(student.getStudentName());
-            updStudent.setStudentClass(student.getStudentClass());
             updStudent.setStudentDateOfBirth(student.getStudentDateOfBirth());
-            updStudent.setStudentOriginatorSchoolName(student.getStudentOriginatorSchoolName());
             updStudent.setStudentSchoolName(student.getStudentSchoolName());
             updStudent.setStudentAddress(student.getStudentAddress());
             updStudent.setStudentPhoneNumber(student.getStudentPhoneNumber());
@@ -86,8 +83,8 @@ public class StudentService {
         return null;
     }
 
-    public Map<String, Boolean> deleteStudent(Long studentId) {
-        Optional<Student> studentToDelete = studentRepository.findByStudentNisAndIsDeletedFalse(studentId);
+    public Map<String, Boolean> deleteStudent(String studentId) {
+        Optional<Student> studentToDelete = studentRepository.findByStudentNisnAndIsDeletedFalse(studentId);
 
         Map<String, Boolean> response = new HashMap<>();
         studentToDelete.ifPresentOrElse(

@@ -26,7 +26,7 @@ public class StudentResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getStudentById(@PathVariable(value = "id") Long studentId) throws NotFoundException {
+    public ResponseEntity<Object> getStudentById(@PathVariable(value = "id") String studentId) throws NotFoundException {
         Student student = studentService.retreiveByStudentNis(studentId);
         if(Objects.nonNull(student)){
             return new ResponseEntity<>(student, HttpStatus.OK);
@@ -41,14 +41,14 @@ public class StudentResource {
     }
 
     @PutMapping("/update/{id}")
-    public Student updateStudent(@PathVariable(value = "id") long studentId,
+    public Student updateStudent(@PathVariable(value = "id") String studentId,
                                  @Valid @RequestBody Student studentDetails) {
 
         return studentService.updateStudent(studentId, studentDetails);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") long studentId) {
+    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") String studentId) {
         return studentService.deleteStudent(studentId);
     }
 

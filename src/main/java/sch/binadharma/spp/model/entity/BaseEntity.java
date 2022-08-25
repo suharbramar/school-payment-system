@@ -27,8 +27,8 @@ public abstract class BaseEntity implements Serializable {
     @UpdateTimestamp
     private Timestamp updateDate;
 
-    @NotNull(message = "Update_By can't be null")
-    @Size(min = 1, max = 50, message = "Update_By length is 1-50")
+//    @NotNull(message = "Update_By can't be null")
+//    @Size(min = 1, max = 50, message = "Update_By length is 1-50")
     @Column(name = "update_by", length = 50, nullable = false)
     private String updateBy;
 

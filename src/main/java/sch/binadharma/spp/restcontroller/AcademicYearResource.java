@@ -4,6 +4,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sch.binadharma.spp.model.entity.AcademicYear;
 import sch.binadharma.spp.service.AcademicYearService;
@@ -14,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/v1/academicyear")
+@RequestMapping("/academicyear/v1")
 public class AcademicYearResource {
 
     @Autowired
@@ -34,7 +35,8 @@ public class AcademicYearResource {
         return new ResponseEntity<>("Academic Year not found", HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/create")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public AcademicYear createAcademicYear(@Valid @RequestBody AcademicYear academicYear) {
         return academicYearService.saveAcademicYear(academicYear);
     }

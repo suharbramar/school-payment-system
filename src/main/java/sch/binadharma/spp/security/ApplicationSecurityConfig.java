@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import sch.binadharma.spp.auth.ApplicationUserService;
 
-import java.util.concurrent.TimeUnit;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -32,9 +30,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.csrf().disable()
+                .csrf().disable()
                 .authorizeRequests() // wants authorize request
-                .antMatchers("index","/bootstrap/css/**","/bootstrap/js/**","/bootstrap/**", "/images/**").permitAll() // whitelist some urls
+                .antMatchers("index", "/bootstrap/css/**", "/bootstrap/js/**", "/bootstrap/**", "/images/**").permitAll() // whitelist some urls
+                .antMatchers("/academicyear/**").hasRole("ADMIN")
                 .anyRequest() //any request
                 .authenticated() //must be authenticated
                 .and()

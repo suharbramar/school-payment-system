@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface StudentRepository extends JpaRepository<Student, String> {
     List<Student> findAllByIsDeletedFalse();
-    Optional<Student> findByStudentNisAndIsDeletedFalse(Long id);
+    Optional<Student> findByStudentNisnAndIsDeletedFalse(String id);
 
-    boolean existsById(Long id);
+    boolean existsById(String id);
 }

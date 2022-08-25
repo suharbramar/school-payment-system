@@ -35,7 +35,7 @@ public class Ppdb implements Serializable {
     private UUID ppdbId;
 
     @ManyToOne
-    @JoinColumn(name = "student_nis", referencedColumnName = "student_nis", updatable = false)
+    @JoinColumn(name = "student_nisn", referencedColumnName = "student_nisn", updatable = false)
     private Student student;
 
     @ManyToOne

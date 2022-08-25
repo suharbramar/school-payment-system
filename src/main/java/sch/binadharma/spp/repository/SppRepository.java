@@ -13,9 +13,9 @@ import java.util.UUID;
 @Repository
 public interface SppRepository extends JpaRepository<Spp, UUID> {
     @Query(value = "SELECT COUNT(spp_id) as spp_id FROM SPP WHERE " +
-            "student_nis = :studentNis " +
+            "student_nisn = :studentNisn " +
             "AND academic_id = :academicId ", nativeQuery = true)
-    Integer countExistingStudentNisAndAcademicYear(long studentNis, String academicId);
+    Integer countExistingStudentNisAndAcademicYear(String studentNisn, String academicId);
 
     Optional<Spp> findBySppNameAndAcademicYearAndStudentIdAndIsDeleted(String sppName, AcademicYear academicYear, Student student, Boolean isDeleted);
 }

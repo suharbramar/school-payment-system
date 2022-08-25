@@ -33,8 +33,8 @@ public class Transaction implements Serializable {
     private UUID transactionId;
 
     @Size(min = 1, max = 10, message = "Maximum student nis is 10 digit number")
-    @Column(name = "student_nis", length = 10, nullable = false)
-    private Long studentNis;
+    @Column(name = "student_nisn", length = 10, nullable = false)
+    private Long studentNisn;
 
     @Column(name = "transaction_date", nullable = false)
     @CreationTimestamp

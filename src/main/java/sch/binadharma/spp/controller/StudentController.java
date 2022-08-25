@@ -25,6 +25,12 @@ public class StudentController {
     private final String ADD_EDIT_STUDENT = "/student/add-edit-student";
     private final String LIST_REDIRECT = "redirect:/student/list";
 
+    private final static  List<ProvinceConfig> provinceConfigList = Arrays.asList(new ProvinceConfig("JKT", "DKI JAKARTA"),
+            new ProvinceConfig("JABAR", "JAWA BARAT"));
+    private final static List<SchoolNameConfig> schoolNameConfigList = Arrays.asList(new SchoolNameConfig("SMPBD3BDG", "SMP BINADHARMA 3 BANDUNG"),
+            new SchoolNameConfig("SMABD1BDG", "SMA BINADHARMA 1 BANDUNG"));
+
+
     @GetMapping("/list")
     public String retreiveAllStudent(Model model) {
         model.addAttribute("listStudents", studentService.retreiveAllStudent());
@@ -33,12 +39,7 @@ public class StudentController {
 
     @GetMapping("/add")
     public String addStudent(Student student, Model model) {
-        List<ProvinceConfig> provinceConfigList = Arrays.asList(new ProvinceConfig("JKT", "DKI JAKARTA"),
-                new ProvinceConfig("JABAR", "JAWA BARAT"));
-
-        List<SchoolNameConfig> schoolNameConfigList = Arrays.asList(new SchoolNameConfig("SMPBD3BDG", "SMP BINADHARMA 3 BANDUNG"),
-                new SchoolNameConfig("SMABD1BDG", "SMA BINADHARMA 1 BANDUNG"));
-
+        student.setAcademicId("2021-2022");
         model.addAttribute("provinceConfigs", provinceConfigList);
         model.addAttribute("schoolNameConfigs", schoolNameConfigList);
         model.addAttribute("student", student);
@@ -46,15 +47,17 @@ public class StudentController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editStudent(@PathVariable(value = "id") long studentNis, Model model) {
+    public String editStudent(@PathVariable(value = "id") String studentNis, Model model) {
         Student studentToUpdate = studentService.retreiveByStudentNis(studentNis);
+        model.addAttribute("provinceConfigs", provinceConfigList);
+        model.addAttribute("schoolNameConfigs", schoolNameConfigList);
         model.addAttribute("student", studentToUpdate);
         return ADD_EDIT_STUDENT;
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable(value = "id") long studentNis, Model model) {
-        studentService.deleteStudent(studentNis);
+    public String deleteStudent(@PathVariable(value = "id") String studentNisn, Model model) {
+        studentService.deleteStudent(studentNisn);
         return LIST_REDIRECT;
     }
 
@@ -62,6 +65,8 @@ public class StudentController {
     public String createCategory(@Valid @ModelAttribute("student") Student student, BindingResult result, Model model
     ) {
         model.addAttribute("student", student);
+        model.addAttribute("provinceConfigs", provinceConfigList);
+        model.addAttribute("schoolNameConfigs", schoolNameConfigList);
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             return ADD_EDIT_STUDENT;

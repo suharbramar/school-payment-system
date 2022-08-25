@@ -58,7 +58,7 @@ public class SppService {
 
     @Transactional
     public Spp newSpp(Spp spp) {
-        Long id =  spp.getStudentId().getStudentNis();
+        String id =  spp.getStudentId().getStudentNisn();
         Optional<Spp> optionalSpp = sppRepository.findBySppNameAndAcademicYearAndStudentIdAndIsDeleted(spp.getSppName(), spp.getAcademicYear(),
                 spp.getStudentId(), Boolean.FALSE);
 

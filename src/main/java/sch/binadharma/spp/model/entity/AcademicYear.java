@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @Builder
 @Entity(name = "AcademicYear")
 @Table(name = "academicyear")
-public class AcademicYear implements Serializable {
+public class AcademicYear extends BaseEntity {
     @Id
     @Column(name = "academic_id", length = 50, nullable = false)
     private String academicId;
@@ -34,31 +34,15 @@ public class AcademicYear implements Serializable {
     @Column(name = "isDeleted", nullable = false)
     private Boolean isDeleted;
 
-    @DateTimeFormat(pattern = "dd//MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "academic_startdate", nullable = false)
     private Date academicStartDate;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "academic_enddate", nullable = false)
     private Date academicEndDate;
 
     @Column(name = "academic_note", length = 100)
     private String academicNote;
-
-    @Column(name = "create_date", nullable = false)
-    @CreationTimestamp
-    private Timestamp createDate;
-
-    @Column(name = "create_by", length = 50, nullable = false)
-    private String createBy;
-
-    @Column(name = "update_date", nullable = false)
-    @UpdateTimestamp
-    private Timestamp updateDate;
-
-    @NotNull(message = "Update_By can't be null")
-    @Size(min = 1, max = 50, message = "Update_By length is 1-50")
-    @Column(name = "update_by", length = 50, nullable = false)
-    private String updateBy;
 
 }

@@ -72,7 +72,7 @@ public class PpdbService {
         FinanceConfig financeConfig = financeConfigService.retreiveByFinanceConfigId(ppdb.getFinanceConfig().getFinanceConfigId());
 
         //Init spp untuk siswa baru
-        Integer countExist = sppRepository.countExistingStudentNisAndAcademicYear(ppdb.getStudent().getStudentNis(), financeConfig.getAcademicYear().getAcademicId());
+        Integer countExist = sppRepository.countExistingStudentNisAndAcademicYear(ppdb.getStudent().getStudentNisn(), financeConfig.getAcademicYear().getAcademicId());
 
         if (countExist.intValue() == 0) {
 
