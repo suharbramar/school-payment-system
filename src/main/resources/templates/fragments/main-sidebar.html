@@ -1,0 +1,89 @@
+<div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="position-sticky px-2 pt-4">
+        <ul class="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+            <li class="mb-1">
+                <a th:href="@{/}" class="link-dark d-inline-flex text-decoration-none rounded px-0">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <i class="fs-5 bi-speedometer2"></i>
+                        <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                    </button>
+                </a>
+            </li>
+            <ul class="list-unstyled ps-0">
+                <li class="border-top mx-2 my-0"></li>
+                <li class="mb-1 pt-3">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#siswa-collapse" aria-expanded="false">
+                        <i class="fs-5 bi-person"></i>
+                        <span class="ms-1 d-none d-sm-inline">Siswa</span>
+                    </button>
+                    <div class="collapse" id="siswa-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li class="active"><a th:href="@{/student/list}"
+                                                  class="link-dark d-inline-flex text-decoration-none rounded px-0">
+                                <span class="d-none d-sm-inline">Pendaftaran Siswa</span>
+                            </a>
+                            </li>
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">Alumni</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#pembayaran-collapse" aria-expanded="false">
+                        <i class="fs-5 bi bi-cash"></i> <span class="ms-1 d-none d-sm-inline">Pembayaran</span>
+                    </button>
+                    <div class="collapse" id="pembayaran-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">PPDB</a>
+                            </li>
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">SPP</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#laporan-collapse" aria-expanded="false">
+                        <i class="bi bi-journals"></i> <span class="ms-1 d-none d-sm-inline">Laporan Keuangan</span>
+                    </button>
+                    <div class="collapse" id="laporan-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">PPDB</a>
+                            </li>
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">Kas</a>
+                            </li>
+                            <li><a href="#"
+                                   class="link-dark d-inline-flex text-decoration-none rounded px-0">Summary</a>
+                            </li>
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">Dana
+                                BOSS</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="border-top mx-2 my-3"></li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                        <i class="bi bi-gear"></i> <span class="ms-1 d-none d-sm-inline">Setting</span>
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded px-0">User</a>
+                            </li>
+                            <li><a href="#"
+                                   class="link-dark d-inline-flex text-decoration-none rounded px-0">Akademik</a>
+                            </li>
+                            <li><a href="#"
+                                   class="link-dark d-inline-flex text-decoration-none rounded px-0">Keuangan</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </ul>
+    </div>
+</div>

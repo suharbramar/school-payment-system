@@ -3,11 +3,13 @@ spring:
   profiles:
     active: local
   application:
-    name: movie-category-service
+    name: binadharma-spp-service
+  thymeleaf:
+    cache: false
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/moviedb
+    url: jdbc:postgresql://localhost:5432/schoolpaymentdb
     username: postgres
     password: admin
   # JPA properties
@@ -41,6 +43,7 @@ logging:
     org.hibernate: debug
 # Server configuration
 server:
+<<<<<<< HEAD
   port: 8081 #set your port
   error:
     include-message: always
@@ -71,3 +74,8 @@ management:
   endpoint:
     health:
       show-details: always
+=======
+  servlet:
+    context-path: /bdpay
+  port: 8080 #set your port
+>>>>>>> c977bf7f2ce2e55e0f355cc0c1034b36defbce8c
